@@ -85,8 +85,7 @@ public class RedBlackTree<E> {
 
         while (x!= null){
             y = x;
-            int cmpx = z.key.compareTo(x.key);
-            if (cmpx < 0) x = x.left;
+            if (z.key.compareTo(x.key) < 0) x = x.left;
             else x = x.right;
         }
         z.parent = y;
