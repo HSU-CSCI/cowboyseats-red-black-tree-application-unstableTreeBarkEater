@@ -59,8 +59,8 @@ public class RedBlackTree<E> {
             int depth = 1;
             Node current = this;
             while(current.parent != null){
+                current = current.parent;
                 if(color == false){
-                    current = current.parent;
                     depth++;
                 }
             }
