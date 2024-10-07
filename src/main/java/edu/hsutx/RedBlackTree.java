@@ -60,7 +60,7 @@ public class RedBlackTree<E> {
             Node current = this;
             while(current.parent != null){
                 current = current.parent;
-                if(color == false){
+                if(!current.color){
                     depth++;
                 }
             }
@@ -176,10 +176,10 @@ public class RedBlackTree<E> {
         // TODO - Implement the fix-up procedure after insertion
         // Ensure that Red-Black Tree properties are maintained (recoloring and rotations).
 
-        while (z.parent.color == true){
-            if (z.parent == z.parent.parent.left){
+        while (z.parent != null && z.parent.color == true){ //while parent is red
+            if (z.parent == z.parent.parent.left){ //if z's parent is a left child of the grandpa
                 Node y = z.parent.parent.right; //right uncle;
-                y = z.parent.parent.right;
+                y = z.parent.parent.right;  // y is going to be z's right uncle
                 if (y != null && y.color == true){ //red uncle
                     z.parent.color = false;
                     y.color = false;
