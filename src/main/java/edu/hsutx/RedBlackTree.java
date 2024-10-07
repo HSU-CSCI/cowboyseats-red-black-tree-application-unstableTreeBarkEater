@@ -1,7 +1,7 @@
 package edu.hsutx;
 
 /**
- * @author Todd Dole
+ * @author Javidan Aghayev
  * @version 1.0
  * Starting Code for the CSCI-3323 Red-Black Tree assignment
  * Students must complete the TODOs and get the tests to pass
