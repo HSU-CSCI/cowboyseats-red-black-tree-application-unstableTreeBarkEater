@@ -159,18 +159,31 @@ public class RedBlackTree<E> {
     }
 
 
+    // private void rbTransplant(Node u, Node v) {
+    //     if (u.parent == null) {
+    //         root = v;
+    //     } else if (u == u.parent.left) {
+    //         u.parent.left = v;
+    //     } else {
+    //         u.parent.right = v;
+    //     }
+    //     v.parent = u.parent;
+    // }
+
     private void rbTransplant(Node u, Node v) {
         if (u.parent == null) {
-            root = v;
-        }else if (u == u.parent.left) {
-            u.parent.left = v;
-        }else{
-            u.parent.right = v;
+            root = v; // If u is the root, replace root with v
+        } else if (u == u.parent.left) {
+            u.parent.left = v; // If u is a left child, replace it with v
+        } else {
+            u.parent.right = v; // If u is a right child, replace it with v
         }
         if (v != null) {
-            v.parent = u.parent;
+            v.parent = u.parent; // Set v's parent to u's parent
         }
     }
+
+
 
     private void fixInsertion(Node z) {
         // TODO - Implement the fix-up procedure after insertion
@@ -221,7 +234,7 @@ public class RedBlackTree<E> {
     private void fixDeletion(Node x) {
         // TODO - Implement the fix-up procedure after deletion
         // Ensure that Red-Black Tree properties are maintained (recoloring and rotations).
-        while (x != root && x.color == false){
+        while (x.parent != null && x != root && x.color == false){
             if(x == x.parent.left){
                 Node w = x.parent.right;
                 if(w.color == true){
@@ -276,60 +289,51 @@ public class RedBlackTree<E> {
     }
 
 
-
-    private void rotateLeft(Node x) { //T, x x is gonna be 'node' in this case
-        // TODO - Implement left rotation
-        // Left rotation is used to restore balance after insertion or deletion
-        Node y = x.right;        //set y
-        x.right = y.left;        // turn y's left subtree into x's right subtree
-        if (y.left != null){
+    private void rotateLeft(Node x) {
+        Node y = x.right;
+        x.right = y.left;
+        if (y.left != null) {
             y.left.parent = x;
         }
-
         y.parent = x.parent;
-
-        if (x.parent == null){
-            root = y;
-        }else if(x == x.parent.left){
+        if (x.parent == null) {
+            this.root = y;
+        } else if (x == x.parent.left) {
             x.parent.left = y;
-        }else{
+        } else {
             x.parent.right = y;
         }
-
-        x.left = x;
+        y.left = x;
         x.parent = y;
     }
 
     private void rotateRight(Node x) {
-        // TODO - Implement right rotation
-        // Right rotation is used to restore balance after insertion or deletion
         Node y = x.left;
         x.left = y.right;
-        if(y.right != null){
+        if (y.right != null) {
             y.right.parent = x;
         }
-
         y.parent = x.parent;
-
-        if(x.parent == null){
-            root = y;
-        }else if(x == x.parent.right){
+        if (x.parent == null) {
+            this.root = y;
+        } else if (x == x.parent.right) {
             x.parent.right = y;
-        }else{
+        } else {
             x.parent.left = y;
         }
-
         y.right = x;
         x.parent = y;
     }
+
+
+
 
     Node find(String key) {
         // TODO - Search for the node with the given key
         Node current = root;
         while (current != null && current.value != null ){
-            int cmp = key.compareTo(current.key);
-            if (cmp == 0) return current;
-            else if (cmp < 0) current = current.left;
+            if (key.compareTo(current.key) == 0) return current;
+            else if (key.compareTo(current.key) < 0) current = current.left;
             else current = current.right;
         }
         return null;
